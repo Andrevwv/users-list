@@ -1,29 +1,23 @@
-# user-list
+# Pagination
+
+### Try app [HERE](https://andrevwv.github.io/users-list/1)
+
+Used:
+
+1. Vue.js
+2. Vuex
+3. Vue Router
+4. axios HTTP client
+5. Vue material
 
 ## Project setup
+
 ```
 npm install
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

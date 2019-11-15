@@ -50,6 +50,7 @@ export default {
   created () {
     const path = this.$router.currentRoute.path.slice(1)
     const isPositiveNumber = !isNaN(path) && +path > 0
+
     if (isPositiveNumber) this.getUsers(+path)
   },
   methods: {
