@@ -1,32 +1,76 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <div v-if="currentPage <= totalPages" id="app" class="app">
     <router-view/>
+    <div class="pagination">
+      <router-link
+        v-for="page in totalPages"
+        :to="`/${page}`"
+        :key="page"
+        :disabled="page === currentPage"
+      >
+        <md-button
+          :md-ripple="false"
+          class="md-raised"
+          :class="{ 'md-primary' : page === currentPage }"
+          @click="getUsers(page)"
+        >
+          {{ page }}
+        </md-button>
+      </router-link>
+    </div>
+  </div>
+  <div class="no-page" v-else>
+    <h2>This page doesn't exist</h2>
+    <router-link  to="/1">
+      <md-button
+        class="md-raised"
+        @click="getUsers(1)"
+      >
+        Go to the first page
+      </md-button>
+    </router-link>
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import { mapActions, mapState } from 'vuex'
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  data () {
+    return {
+      path: this.$router.currentRoute.path.slice(1)
     }
+  },
+  created () {
+    if (!isNaN(this.path)) this.getUsers(+this.path)
+  },
+  methods: {
+    ...mapActions(['getUsers'])
+  },
+  computed: {
+    ...mapState(['currentPage', 'totalPages'])
   }
 }
+
+</script>
+<style lang="scss">
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px 0;
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.no-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 </style>
